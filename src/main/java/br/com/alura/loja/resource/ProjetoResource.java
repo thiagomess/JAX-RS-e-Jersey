@@ -5,18 +5,19 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import br.com.alura.loja.dao.CarrinhoDAO;
-import br.com.alura.loja.modelo.Carrinho;
+import br.com.alura.loja.dao.ProjetoDAO;
+import br.com.alura.loja.modelo.Projeto;
 
-@Path("carrinhos")
-public class CarrinhoResource {
+@Path("projetos")
+public class ProjetoResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public String busca() {
-		Carrinho carrinho = new CarrinhoDAO().busca(1l);
+		Projeto projeto = new ProjetoDAO().busca(1l);
 		
-		return carrinho.toXML();
+		return projeto.toXML();
+		
 		
 	}
 
