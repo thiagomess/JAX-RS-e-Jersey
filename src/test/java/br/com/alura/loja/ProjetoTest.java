@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.gson.Gson;
-import com.thoughtworks.xstream.XStream;
 
 import br.com.alura.loja.modelo.Projeto;
 
@@ -41,5 +40,6 @@ public class ProjetoTest {
 		
 		Assert.assertEquals("Minha loja", projeto.getNome());
 	}
+	
 
 }
