@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 
 import br.com.alura.loja.modelo.Projeto;
@@ -36,7 +37,7 @@ public class ProjetoTest {
 		WebTarget target = client.target("http://localhost:8080");
 		String conteudo = target.path("/projetos/1").request().get(String.class);
 		
-		Projeto projeto = (Projeto) new XStream().fromXML(conteudo);
+		Projeto projeto = new Gson().fromJson(conteudo, Projeto.class);
 		
 		Assert.assertEquals("Minha loja", projeto.getNome());
 	}
