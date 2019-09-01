@@ -60,7 +60,12 @@ public class ClienteTest {
         Entity<String> entity = Entity.entity(xml, MediaType.APPLICATION_XML);
 
         Response response = target.path("/carrinhos").request().post(entity);
-        Assert.assertEquals("<status>sucesso</status>", response.readEntity(String.class));
+        
+        Assert.assertEquals(201, response.getStatus());
+        
+        //Captura a URL de retortno e efetua um get nela
+        String conteudo = client.target(response.getHeaderString("Location")).request().get(String.class);
+        Assert.assertTrue(conteudo.contains("Tablet"));
 	}
 
 }
