@@ -67,5 +67,30 @@ public class ClienteTest {
         String conteudo = client.target(response.getHeaderString("Location")).request().get(String.class);
         Assert.assertTrue(conteudo.contains("Tablet"));
 	}
+	
+	@Test
+	public void deveAdicionarERemoverUmItemDoCarrinho() {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target("http://localhost:8080");
+		
+        Carrinho carrinho = new Carrinho();
+        carrinho.adiciona(new Produto(314L, "Tablet", 999, 1));
+        carrinho.setRua("Rua Vergueiro");
+        carrinho.setCidade("Sao Paulo");
+        String xml = carrinho.toXML();
+        
+        Entity<String> entity = Entity.entity(xml, MediaType.APPLICATION_XML);
+
+        Response response = target.path("/carrinhos").request().post(entity);
+        
+        Assert.assertEquals(201, response.getStatus());
+        
+        //Captura a URL de retortno e efetua um get nela
+		
+        String url = response.getHeaderString("Location");
+	
+        Response delete = client.target(url+"/produtos/"+carrinho.getProdutos().get(0).getId()).request().delete();
+        Assert.assertEquals(200, delete.getStatus());
+	}
 
 }
